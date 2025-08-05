@@ -15,3 +15,10 @@ stack build
 ```
 
 - This downloads GHC (if not already installed), compiles the project, and ensures everything works
+
+```bash
+
+stack run
+```
+
+- This runs the script 
