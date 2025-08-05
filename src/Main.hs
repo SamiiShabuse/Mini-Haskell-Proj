@@ -17,6 +17,27 @@ readNumber prompt = do
   input <- getLine
   return (read input :: Double)
 
+-- Calculator Logic (One Round)
+calculatorRound :: IO ()
+calculatorRound = do
+  firstInput <- readNumber "Please enter the first number: "
+  secondInput <- readNumber "Please enter the second number: "
+  putStrLn "Choose an operation (+, -, *, /): "
+  operation <- getLine
+  let result = calculate firstInput operation secondInput
+  putStrLn ("The result of " ++ show firstInput ++ " " ++ operation ++ " " ++ show secondInput ++ " is " ++ show result)
+
+-- Loop that continues to ask for input until the user decides to stop
+calculatorLoop :: IO ()
+calculatorLoop = do
+  putStrLn "Do you want to perform a calculation? (yes/no)"
+  response <- getLine
+  if response == "yes"
+    then do
+      calculatorRound
+      calculatorLoop  -- Recursively call to continue the loop
+    else putStrLn "Thank you for using the Haskell calculator. Goodbye!"
+
 -- Main entry point
 main :: IO ()
 main = do
@@ -24,16 +45,4 @@ main = do
   putStrLn "What is your name?"
   name <- getLine
   putStrLn ("Nice to meet you, " ++ name ++ "! Welcome to Haskell calculator! <Insert Calculator Emoji!>")
-
-  firstInput <- readNumber "Please enter the first number: "
-
-  secondInput <- readNumber "Please enter the second number: "
-
-  putStrLn "Choose an operation (+, -, *, /): "
-  operation <- getLine
-
-  let result = calculate firstInput operation secondInput
-
-  -- This is a comment explaining the next line of code
-  putStrLn ("The result of " ++ show firstInput ++ " " ++ operation ++ " " ++ show secondInput ++ " is " ++ show result)
-  putStrLn "Thank you for using the Haskell calculator. Goodbye!"
+  calculatorLoop  -- Start the calculator loop
