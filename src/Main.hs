@@ -13,10 +13,21 @@ main = do
   putStrLn "Enter the second number: "
   secondInput <- getLine
 
+  putStrLn "Choose an operation (+, -, *, /): "
+  operation <- getLine
+
   let firstNumber = read firstInput :: Int
       secondNumber = read secondInput :: Int
-      sumResult = firstNumber + secondNumber
+      
+      result = case operation of
+        "+" -> firstNumber + secondNumber
+        "-" -> firstNumber - secondNumber
+        "*" -> firstNumber * secondNumber
+        "/" -> if secondNumber /= 0 
+                  then firstNumber `div` secondNumber 
+                  else error "Cannot divide by zero!"
+        _   -> error "Invalid operation!"
 
   -- This is a comment explaining the next line of code
-  putStrLn ("The sum of " ++ show firstNumber ++ " and " ++ show secondNumber ++ " is " ++ show sumResult)
+  putStrLn ("The result of " ++ show firstNumber ++ " " ++ operation ++ " " ++ show secondNumber ++ " is " ++ show result)
   putStrLn "Thank you for using the Haskell calculator. Goodbye!"
