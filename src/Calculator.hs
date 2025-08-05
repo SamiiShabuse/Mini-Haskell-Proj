@@ -15,3 +15,13 @@ calculate a operation b =
         then show (a `mod` round b) 
         else "Error: Division by zero"
     _   -> "Error: Invalid operation"
+
+-- Import for floating-point modulus
+import Data.Fixed (mod')
+
+-- Ask the user to enter a number
+readNumber :: String -> IO Double
+readNumber prompt = do
+  putStrLn prompt
+  input <- getLine
+  return (read input :: Double)
